@@ -14,7 +14,6 @@ export default function Card(props) {
       <div
         className="gallery__photo"
         style={{ backgroundImage: `url(${props.card.link})` }}
-        alt={props.card.name}
         onClick={handleClick}
       />
       <div className="gallery__description">
