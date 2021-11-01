@@ -1,13 +1,43 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/Inter/inter.css);
+@import url(./blocks/page/page.css);
+@import url(./blocks/content/content.css);
+@import url(./blocks/header/header.css);
+@import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/profile/profile.css);
+@import url(./blocks/profile/__avatar-container/profile__avatar-container.css);
+@import url(./blocks/profile/__avatar-edit/profile__avatar-edit.css);
+@import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__info-title/profile__info-title.css);
+@import url(./blocks/profile/__name/profile__name.css);
+@import url(./blocks/profile/__edit-button/profile__edit-button.css);
+@import url(./blocks/profile/__job-description/profile__job-description.css);
+@import url(./blocks/profile/__add-button/profile__add-button.css);
+@import url(./blocks/gallery/gallery.css);
+@import url(./blocks/gallery/__list/gallery__list.css);
+@import url(./blocks/gallery/__item/gallery__item.css);
+@import url(./blocks/gallery/__trash-button/gallery__trash-button.css);
+@import url(./blocks/gallery/__photo/gallery__photo.css);
+@import url(./blocks/gallery/__description/gallery__description.css);
+@import url(./blocks/gallery/__text/gallery__text.css);
+@import url(./blocks/gallery/__like-container/gallery__like-container.css);
+@import url(./blocks/gallery/__like-button/gallery__like-button.css);
+@import url(./blocks/gallery/__like-counter/gallery__like-counter.css);
+@import url(./blocks/gallery/__like-button/_active/gallery__like-button_active.css);
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/footer/__copyrights/footer__copyrights.css);
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/_opened/popup_opened.css);
+@import url(./blocks/popup/__container/popup__container.css);
+@import url(./blocks/popup/__container/_type/popup__container_type_photo.css);
+@import url(./blocks/popup/__close-button/popup__close-button.css);
+@import url(./blocks/popup/__form/popup__form.css);
+@import url(./blocks/popup/__form-title/popup__form-title.css);
+@import url(./blocks/popup/__form-title/_delete/popup__form-title_delete.css);
+@import url(./blocks/popup/__form-input/popup__form-input.css);
+@import url(./blocks/popup/__form-input/_type/popup__form-input_type_error.css);
+@import url(./blocks/popup/__form-input-error/_active/popup__form-input-error_active.css);
+@import url(./blocks/popup/__form-submit-button/popup__form-submit-button.css);
+@import url(./blocks/popup/__form-submit-button/_inactive/popup__form-submit-button_inactive.css);
+@import url(./blocks/popup/__photo/popup__photo.css);
+@import url(./blocks/popup/__text/popup__text.css);
