@@ -89,6 +89,15 @@ const fetchCall = (url, headers) => {
         headers: this._headers,
       });
     }
+
+    //toggle likes:
+    changeLikeCardStatus(cardID, isLiked){
+      if (isLiked){
+        return this.dislike(cardID);
+      } else {
+        return this.addLike(cardID);
+      }
+    }
   }
   
   export const api = new Api("https://around.nomoreparties.co/v1/group-12", {

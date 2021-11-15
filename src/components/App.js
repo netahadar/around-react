@@ -30,6 +30,7 @@ function App() {
     name: "",
     about: "",
     avatar: "",
+    _id: ""
   });
 
   function handleEditAvatarClick() {
@@ -60,7 +61,7 @@ function App() {
     api
       .getUserInfo()
       .then((res) => {
-        setCurrentUser({ name: res.name, about: res.about, avatar: res.link });
+        setCurrentUser({ name: res.name, about: res.about, avatar: res.avatar, _id: res._id });
       })
       .catch(console.log);
   }, []);

@@ -3,7 +3,6 @@ import { api } from "../utils/api";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-
 export default function Main(props) {
   //Subscribing to user info context:
   const currentUser = React.useContext(CurrentUserContext);
@@ -20,6 +19,15 @@ export default function Main(props) {
       })
       .catch(console.log);
   }, []);
+
+  function handleCardLike(card) {
+    // Check if card was already liked:
+    const isLiked = card.likes.some((user) => user._id === currentUser._id);
+    // Send a request to the API and getting the updated card data
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
 
   return (
     <main>
@@ -56,7 +64,14 @@ export default function Main(props) {
       <section className="gallery">
         <ul className="gallery__list">
           {cards.map((card) => {
-            return (<Card card={card} key={card._id} onCardClick={props.onCardClick} />)
+            return (
+              <Card
+                card={card}
+                key={card._id}
+                onCardClick={props.onCardClick}
+                onCardLike={handleCardLike}
+              />
+            );
           })}
         </ul>
       </section>

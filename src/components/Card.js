@@ -9,6 +9,10 @@ export default function Card(props) {
     props.onCardClick(props.card);
   }
 
+  function handleLikeClick() {
+    props.onCardLike(props.card);
+  }
+
   // Checking if the current user is the owner of the current card:
   const isOwn = props.card.owner._id === currentUser._id;
 
@@ -42,6 +46,7 @@ export default function Card(props) {
             className={galleryLikeButtonClassName}
             type="button"
             aria-label="like button"
+            onClick={handleLikeClick}
           ></button>
           <p className="gallery__like-counter">{props.card.likes.length}</p>
         </div>
