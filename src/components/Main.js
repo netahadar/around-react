@@ -29,6 +29,14 @@ export default function Main(props) {
     });
   }
 
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      const newCards = cards.filter(c => c._id !== card._id)
+    setCards(newCards);
+  }
+    );
+}
+
   return (
     <main>
       <section className="profile">
@@ -70,6 +78,7 @@ export default function Main(props) {
                 key={card._id}
                 onCardClick={props.onCardClick}
                 onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
               />
             );
           })}

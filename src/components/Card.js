@@ -13,6 +13,10 @@ export default function Card(props) {
     props.onCardLike(props.card);
   }
 
+  function handleDeleteClick() {
+    props.onCardDelete(props.card)
+  }
+
   // Checking if the current user is the owner of the current card:
   const isOwn = props.card.owner._id === currentUser._id;
 
@@ -33,6 +37,7 @@ export default function Card(props) {
         className={galleryTrashButtonClassName}
         type="button"
         aria-label="delete button"
+        onClick={handleDeleteClick}
       ></button>
       <div
         className="gallery__photo"
