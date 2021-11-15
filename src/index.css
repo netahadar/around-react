@@ -17,6 +17,8 @@
 @import url(./blocks/gallery/__list/gallery__list.css);
 @import url(./blocks/gallery/__item/gallery__item.css);
 @import url(./blocks/gallery/__trash-button/gallery__trash-button.css);
+@import url(./blocks/gallery/__trash-button/_hidden/gallery__trash-button_hidden.css);
+@import url(./blocks/gallery/__trash-button/_visible/gallery__trash-button_visible.css);
 @import url(./blocks/gallery/__photo/gallery__photo.css);
 @import url(./blocks/gallery/__description/gallery__description.css);
 @import url(./blocks/gallery/__text/gallery__text.css);

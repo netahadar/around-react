@@ -1,27 +1,15 @@
 import React from "react";
 import { api } from "../utils/api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
 
 export default function Main(props) {
-  // States for getting user data from sever:
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
+  //Subscribing to user info context:
+  const currentUser = React.useContext(CurrentUserContext);
 
   //States for getting initial cards from server:
   const [cards, setCards] = React.useState([]);
-
-  //API request for getting user data:
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch(console.log);
-  }, []);
 
   //API request for getting initial cards data:
   React.useEffect(() => {
@@ -38,7 +26,7 @@ export default function Main(props) {
       <section className="profile">
         <div
           className="profile__avatar-container"
-          style={{ backgroundImage: `url(${userAvatar})` }}
+          style={{ backgroundImage: `url("${currentUser.avatar}")` }}
         >
           <button
             className="profile__avatar-edit"
@@ -47,7 +35,7 @@ export default function Main(props) {
         </div>
         <div className="profile__info">
           <div className="profile__info-title">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <button
               className="profile__edit-button"
               type="button"
@@ -55,7 +43,7 @@ export default function Main(props) {
               onClick={props.onEditProfileClick}
             ></button>
           </div>
-          <p className="profile__job-description">{userDescription}</p>
+          <p className="profile__job-description">{currentUser.about}</p>
         </div>
         <button
           className="profile__add-button"
