@@ -1,7 +1,7 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
-export default function AddPlacePopup(props) {
+export default function AddPlacePopup({isOpen, onClose, onAddPlaceSubmit}) {
   const [place, setPlace] = React.useState("");
   const [link, setLink] = React.useState("");
 
@@ -17,7 +17,7 @@ export default function AddPlacePopup(props) {
     e.preventDefault();
 
     // Pass the values to the external handler
-    props.onAddPlaceSubmit({
+    onAddPlaceSubmit({
         name: place,
         link: link
     });
@@ -28,8 +28,8 @@ export default function AddPlacePopup(props) {
       name="post"
       title="New place"
       buttonTitle="Create"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <input

@@ -2,7 +2,15 @@ import React from "react";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function Main(props) {
+export default function Main({
+  onEditProfileClick,
+  onAddPlaceClick,
+  onEditAvatarClick,
+  onDeletePostClick,
+  onCardClick,
+  cards,
+  onCardLike,
+}) {
   //Subscribing to user info context:
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -15,7 +23,7 @@ export default function Main(props) {
         >
           <button
             className="profile__avatar-edit"
-            onClick={props.onEditAvatarClick}
+            onClick={onEditAvatarClick}
           ></button>
         </div>
         <div className="profile__info">
@@ -25,7 +33,7 @@ export default function Main(props) {
               className="profile__edit-button"
               type="button"
               aria-label="edit button"
-              onClick={props.onEditProfileClick}
+              onClick={onEditProfileClick}
             ></button>
           </div>
           <p className="profile__job-description">{currentUser.about}</p>
@@ -34,20 +42,20 @@ export default function Main(props) {
           className="profile__add-button"
           type="button"
           aria-label="add button"
-          onClick={props.onAddPlaceClick}
+          onClick={onAddPlaceClick}
         ></button>
       </section>
 
       <section className="gallery">
         <ul className="gallery__list">
-          {props.cards.map((card) => {
+          {cards.map((card) => {
             return (
               <Card
                 card={card}
                 key={card._id}
-                onCardClick={props.onCardClick}
-                onCardLike={props.onCardLike}
-                onCardDelete={props.onCardDelete}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                onDeletePostClick={onDeletePostClick}
               />
             );
           })}

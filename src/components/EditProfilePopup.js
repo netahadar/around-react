@@ -1,8 +1,8 @@
-import PopupWithForm from "./PopupWithForm";
 import React from "react";
+import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function EditProfilePopup(props) {
+export default function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
 
@@ -30,7 +30,7 @@ export default function EditProfilePopup(props) {
     e.preventDefault();
 
     // Pass the values to the external handler
-    props.onUpdateUser({
+    onUpdateUser({
       name,
       about: description,
     });
@@ -41,8 +41,8 @@ export default function EditProfilePopup(props) {
       name="profile"
       title="Edit Profile"
       buttonTitle="Save"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <input
