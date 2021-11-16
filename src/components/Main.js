@@ -32,7 +32,7 @@ export default function Main(props) {
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(() => {
       const newCards = cards.filter(c => c._id !== card._id)
-    setCards(newCards);
+      setCards(newCards);
   }
     );
 }

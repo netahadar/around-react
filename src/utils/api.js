@@ -29,10 +29,11 @@ const fetchCall = (url, headers) => {
         headers: this._headers,
         body: JSON.stringify({
           //New avatar link:
-          avatar: data.link,
+          avatar: data.avatar,
         })
       });
     }
+
     //Get initial cards from server:
     getInitialCards() {
       return fetchCall(`${this._baseUrl}/cards`, {
@@ -41,7 +42,7 @@ const fetchCall = (url, headers) => {
     }
   
     //Send new profile data to server:
-    sendNewData(obj) {
+    setUserInfo(obj) {
       return fetchCall(`${this._baseUrl}/users/me`, {
         method: "PATCH",
         headers: this._headers,
@@ -75,7 +76,7 @@ const fetchCall = (url, headers) => {
     }
   
     //Add like to card:
-    addLike(cardId) {
+    _addLike(cardId) {
       return fetchCall(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "PUT",
         headers: this._headers,
@@ -83,7 +84,7 @@ const fetchCall = (url, headers) => {
     }
   
     //Remove like from catd:
-    dislike(cardId) {
+    _dislike(cardId) {
       return fetchCall(`${this._baseUrl}/cards/likes/${cardId}`, {
         method: "DELETE",
         headers: this._headers,
@@ -93,9 +94,9 @@ const fetchCall = (url, headers) => {
     //toggle likes:
     changeLikeCardStatus(cardID, isLiked){
       if (isLiked){
-        return this.dislike(cardID);
+        return this._dislike(cardID);
       } else {
-        return this.addLike(cardID);
+        return this._addLike(cardID);
       }
     }
   }

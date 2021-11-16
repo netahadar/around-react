@@ -6,6 +6,8 @@ import ImagePopup from "./ImagePopup";
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   //State for edit avatar popup:
@@ -30,7 +32,7 @@ function App() {
     name: "",
     about: "",
     avatar: "",
-    _id: ""
+    _id: "",
   });
 
   function handleEditAvatarClick() {
@@ -61,10 +63,46 @@ function App() {
     api
       .getUserInfo()
       .then((res) => {
-        setCurrentUser({ name: res.name, about: res.about, avatar: res.avatar, _id: res._id });
+        setCurrentUser({
+          name: res.name,
+          about: res.about,
+          avatar: res.avatar,
+          _id: res._id,
+        });
       })
       .catch(console.log);
   }, []);
+
+  function handleUpdateUser(newData) {
+    api
+      .setUserInfo(newData)
+      .then((res) => {
+        setCurrentUser({
+          name: res.name,
+          about: res.about,
+          avatar: res.avatar,
+          _id: res._id,
+        });
+      })
+      .catch(console.log);
+    closeAllPopups();
+  }
+
+  function handleUpdateAvatar(newData) {
+    api
+      .setUserAvatar(newData)
+      .then((res) => {
+        console.log(res);
+        setCurrentUser({
+          name: res.name,
+          about: res.about,
+          avatar: res.avatar,
+          _id: res._id,
+        });
+      })
+      .catch(console.log);
+      closeAllPopups();
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -79,36 +117,11 @@ function App() {
         <Footer />
 
         <section>
-          <PopupWithForm
-            name="profile"
-            title="Edit Profile"
-            buttonTitle="Save"
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              className="popup__form-input"
-              id="name-input"
-              type="text"
-              name="name"
-              placeholder="full name"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-            <span id="name-input-error"></span>
-            <input
-              className="popup__form-input"
-              id="job-input"
-              type="text"
-              name="about"
-              placeholder="job title"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-            <span id="job-input-error"></span>
-          </PopupWithForm>
+            onUpdateUser={handleUpdateUser}
+          />
           <PopupWithForm
             name="post"
             title="New place"
@@ -156,23 +169,11 @@ function App() {
               </form>
             </div>
           </div> */}
-          <PopupWithForm
-            name="avatar"
-            title="Change profile picture"
-            buttonTitle="Save"
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              className="popup__form-input"
-              id="avatar-link"
-              type="url"
-              name="link"
-              placeholder="avatar link"
-              required
-            />
-            <span id="avatar-link-error"></span>
-          </PopupWithForm>
+            onUpdateAvatar={handleUpdateAvatar}
+          />
         </section>
       </div>
     </CurrentUserContext.Provider>
