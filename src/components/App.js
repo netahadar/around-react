@@ -8,6 +8,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { api } from "../utils/api";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
   //State for edit avatar popup:
@@ -35,6 +36,34 @@ function App() {
     _id: "",
   });
 
+  //States for getting initial cards from server:
+  const [cards, setCards] = React.useState([]);
+
+  //API request for getting initial cards data:
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch(console.log);
+  }, []);
+
+  //API request for getting user data:
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then((res) => {
+        setCurrentUser({
+          name: res.name,
+          about: res.about,
+          avatar: res.avatar,
+          _id: res._id,
+        });
+      })
+      .catch(console.log);
+  }, []);
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -57,21 +86,6 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setSelectedCard({ name: "", link: "" });
   }
-
-  //API request for getting user data:
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setCurrentUser({
-          name: res.name,
-          about: res.about,
-          avatar: res.avatar,
-          _id: res._id,
-        });
-      })
-      .catch(console.log);
-  }, []);
 
   function handleUpdateUser(newData) {
     api
@@ -101,7 +115,33 @@ function App() {
         });
       })
       .catch(console.log);
-      closeAllPopups();
+    closeAllPopups();
+  }
+
+  function handleCardLike(card) {
+    // Check if card was already liked:
+    const isLiked = card.likes.some((user) => user._id === currentUser._id);
+    // Send a request to the API and getting the updated card data
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      const newCards = cards.filter((c) => c._id !== card._id);
+      setCards(newCards);
+    });
+  }
+
+  function handleAddPlaceSubmit(newData) {
+    api
+      .createNewCard(newData)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch(console.log);
+    closeAllPopups();
   }
 
   return (
@@ -113,6 +153,9 @@ function App() {
           onAddPlaceClick={handleAddPlaceClick}
           onEditAvatarClick={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
 
@@ -122,34 +165,11 @@ function App() {
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
           />
-          <PopupWithForm
-            name="post"
-            title="New place"
-            buttonTitle="Create"
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              className="popup__form-input"
-              id="title-input"
-              type="text"
-              name="name"
-              placeholder="Title"
-              minLength="1"
-              maxLength="30"
-              required
-            />
-            <span id="title-input-error"></span>
-            <input
-              className="popup__form-input"
-              id="link-input"
-              type="url"
-              name="link"
-              placeholder="Image link"
-              required
-            />
-            <span id="link-input-error"></span>
-          </PopupWithForm>
+            onAddPlaceSubmit={handleAddPlaceSubmit}
+          />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <PopupWithForm
             name="delete"

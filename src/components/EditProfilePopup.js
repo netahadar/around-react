@@ -29,7 +29,7 @@ export default function EditProfilePopup(props) {
     // Prevent the browser from navigating to the form address
     e.preventDefault();
 
-    // Pass the values of the managed components to the external handler
+    // Pass the values to the external handler
     props.onUpdateUser({
       name,
       about: description,
