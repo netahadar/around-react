@@ -101,8 +101,9 @@ const fetchCall = (url, headers) => {
     }
   }
   
-  export const api = new Api("https://around.nomoreparties.co/v1/group-12", {
+  const api = new Api("https://around.nomoreparties.co/v1/group-12", {
     authorization: "12be1991-4f28-449f-a9a9-71d4704b25a2",
     "Content-Type": "application/json",
   });
   
+  export default api;
